@@ -73,21 +73,21 @@ public class Wave : MonoBehaviour {
 		if (!isInteractive)
 			return;
 
-		if (Input.GetKey (KeyCode.RightArrow)) {
-			targetFrequency += 0.01f;
-			if (targetFrequency > 3)
-				targetFrequency = 3;
-		}
-
-		if (Input.GetKey (KeyCode.LeftArrow)) {
-			targetFrequency -= 0.01f;
-			if (targetFrequency < 0.25f)
-				targetFrequency = 0.25f;
-		}
-
 		if (Input.GetKeyUp (KeyCode.Tab)) {
 			Debug.Log (frequency);	
 			}
+	}
+
+	public void SetTargetFrequency (float inc)
+	{
+		targetFrequency += inc;
+
+		if (targetFrequency > 3)
+			targetFrequency = 3;
+
+		if (targetFrequency < 0.25f)
+			targetFrequency = 0.25f;
+
 	}
 
 	public void UpdateWave()
