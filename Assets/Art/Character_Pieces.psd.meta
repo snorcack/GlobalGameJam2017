@@ -1,0 +1,252 @@
+fileFormatVersion: 2
+guid: 149389d736e2049518fae444485fb3a1
+timeCreated: 1484994776
+licenseType: Pro
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Hamster_Back_Ear
+    21300002: Hamster_Front_Ear
+    21300004: Hamster_Cap
+    21300006: Hamster_Head
+    21300008: Hamster_Eye
+    21300010: Hamster_Torso
+    21300012: Hamster_Hand
+    21300014: Hamster_Tail
+    21300016: Hamster_Thigh
+    21300018: Hamster_Back_Foot
+    21300020: Hamster_Front_Foot
+    21300022: Character_Pieces_0
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: WebGL
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Hamster_Back_Ear
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 444
+        width: 30
+        height: 34
+      alignment: 9
+      pivot: {x: 0.56413573, y: 0.14159527}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Hamster_Front_Ear
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 408
+        width: 56
+        height: 60
+      alignment: 9
+      pivot: {x: 0.6374337, y: 0.21138968}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Hamster_Cap
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 260
+        width: 124
+        height: 156
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Hamster_Head
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 288
+        width: 164
+        height: 148
+      alignment: 9
+      pivot: {x: 0.4320955, y: 0.026396055}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Hamster_Eye
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 335
+        width: 49
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Hamster_Torso
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 39
+        width: 202
+        height: 234
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Hamster_Hand
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 216
+        width: 54
+        height: 68
+      alignment: 9
+      pivot: {x: 0.85630965, y: 0.88670033}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Hamster_Tail
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 119
+        width: 69
+        height: 57
+      alignment: 9
+      pivot: {x: 0.91827613, y: 0.094932556}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Hamster_Thigh
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 84
+        width: 122
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Hamster_Back_Foot
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 24
+        width: 81
+        height: 28
+      alignment: 9
+      pivot: {x: 0.048675068, y: 0.52290523}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Hamster_Front_Foot
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 24
+        width: 90
+        height: 30
+      alignment: 9
+      pivot: {x: 0.036798097, y: 0.4786213}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Character_Pieces_0
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 246
+        width: 53
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
