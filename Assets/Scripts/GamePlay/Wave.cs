@@ -12,6 +12,9 @@ public class Wave : MonoBehaviour {
 	public Texture2D lineTexture;
 	public float wavePosX;
 	public float wavePosY;
+	public bool isInteractive;
+
+	Vector3 waveIncrement = new Vector3 (0.1f,0,0);
 
 	public float Amplitude {
 		get {
@@ -22,8 +25,14 @@ public class Wave : MonoBehaviour {
 		}
 	}
 
-	float amplitude = 1;
+	float amplitude = 0.7f;
 	float frequency = 1 ;
+	float waveSpeed = 0.1f;
+	float targetAmplitude = 1;
+	float amplitudeDelta = 0.1f;
+
+	float targetFrequency =1 ;
+	float frequencyDelta = 0.1f;
 
 	public float Frequency {
 		get {
@@ -34,19 +43,19 @@ public class Wave : MonoBehaviour {
 		}
 	}
 
-	int segments = 300;
+	int segments = 500;
 	VectorLine waveLine ;
-	int curvePointCount = 15;
-	Vector3[] curvePoints = new Vector3[15];
+	int curvePointCount = 50;
+
+	List<Vector3> wavePoints = new List<Vector3> ();
 
 	// Use this for initialization
 	void Start () {
-		waveLine  = new VectorLine ("Spline",new List<Vector3>(segments+1),null,5.0f,LineType.Continuous);
+		waveLine  = new VectorLine ("Spline",new List<Vector3>(segments+1),null,10.0f,LineType.Continuous,Joins.Weld);
 
 		waveLine.material = lineMat;
 		waveLine.texture = lineTexture;
 		waveLine.rectTransform.position = new Vector3( wavePosX,wavePosY,0);
-
 
 		UpdateWave ();
 	}
@@ -60,6 +69,17 @@ public class Wave : MonoBehaviour {
 			return;
 		
 		AnimateWave ();
+
+		if (!isInteractive)
+			return;
+
+		if (Input.GetKeyUp (KeyCode.RightArrow)) {
+			targetFrequency += 0.1f;
+		}
+
+		if (Input.GetKeyUp (KeyCode.LeftArrow)) {
+			targetFrequency -= 0.1f;
+		}
 		
 	}
 
@@ -67,9 +87,10 @@ public class Wave : MonoBehaviour {
 	{
 		int flipper = 1;
 
+		wavePoints.Clear ();
+
 		for (int i = 0; i < curvePointCount; i++) {
-			curvePoints [i] = new Vector3 (i*frequency,amplitude*flipper,0);
-			Debug.Log (curvePoints[i].y);
+			wavePoints.Add ( new Vector3 (i*frequency,amplitude*flipper,0));
 			flipper *= -1;
 		}
 		DrawWave ();
@@ -79,23 +100,41 @@ public class Wave : MonoBehaviour {
 
 	public void DrawWave ()
 	{
-		waveLine.MakeSpline (curvePoints, segments, false);
+		waveLine.MakeSpline (wavePoints.ToArray(), segments, false);
 		waveLine.Draw3D ();
+	}
+
+	public void SetColor ()
+	{
+		if (!isInteractive) {
+			return;
+		}
 	}
 
 	void AnimateWave()
 	{
+		
 		for (int i = 0; i< curvePointCount; i++) {
 		
-			curvePoints [i].x -= 0.1f;
 
+			wavePoints [i] -= waveIncrement;
 
 		}
+			
+		float currentSign = Mathf.Sign (wavePoints[wavePoints.Count-1].y);
+		float currentFrequency = wavePoints [wavePoints.Count - 1].x;
+		if (wavePoints [0].x < ( -frequency) + waveSpeed) {
+			wavePoints.RemoveAt (0);
 
-		if (curvePoints [0].x < (-2 * frequency)) {
 
-			UpdateWave ();
+			if (frequency < targetFrequency) {
+				frequency += frequencyDelta;
+			} else if (frequency > frequencyDelta) {
+				frequency -= frequencyDelta;
+			}
 
+
+			wavePoints.Add (new Vector3(currentFrequency + frequency, amplitude* currentSign * -1,0));
 		}
 
 		DrawWave ();
