@@ -67,20 +67,27 @@ public class Wave : MonoBehaviour {
 
 		if (GameConstants.isPaused)
 			return;
-		
+		SetColor (1);
 		AnimateWave ();
 
 		if (!isInteractive)
 			return;
 
-		if (Input.GetKeyUp (KeyCode.RightArrow)) {
-			targetFrequency += 0.1f;
+		if (Input.GetKey (KeyCode.RightArrow)) {
+			targetFrequency += 0.01f;
+			if (targetFrequency > 3)
+				targetFrequency = 3;
 		}
 
-		if (Input.GetKeyUp (KeyCode.LeftArrow)) {
-			targetFrequency -= 0.1f;
+		if (Input.GetKey (KeyCode.LeftArrow)) {
+			targetFrequency -= 0.01f;
+			if (targetFrequency < 0.25f)
+				targetFrequency = 0.25f;
 		}
-		
+
+		if (Input.GetKeyUp (KeyCode.Tab)) {
+			Debug.Log (frequency);	
+			}
 	}
 
 	public void UpdateWave()
@@ -94,6 +101,7 @@ public class Wave : MonoBehaviour {
 			flipper *= -1;
 		}
 		DrawWave ();
+
 	}
 
 
@@ -104,11 +112,30 @@ public class Wave : MonoBehaviour {
 		waveLine.Draw3D ();
 	}
 
-	public void SetColor ()
+	public void SetColor (float targetFreq)
 	{
 		if (!isInteractive) {
 			return;
 		}
+
+		float diff = Mathf.Abs (targetFreq - frequency);
+		float multiplier = 0;
+
+
+
+		if (diff > 0.5f) {
+			multiplier = 1;
+		} else {
+			multiplier = diff / 0.5f;
+		} 
+
+		if (diff < 0.1f)
+			multiplier = 0;
+		
+		//Debug.Log (multiplier + "" + frequency);
+		lineMat.SetFloat ("_Hue",multiplier * 0.67f);
+		waveLine.material = lineMat;
+
 	}
 
 	void AnimateWave()
@@ -120,12 +147,20 @@ public class Wave : MonoBehaviour {
 			wavePoints [i] -= waveIncrement;
 
 		}
-			
+
+		frequencyDelta = Mathf.Abs (targetFrequency - frequency) / 5;
+		if (frequencyDelta < 0.1f)
+			frequencyDelta = 0.1f;
+
 		float currentSign = Mathf.Sign (wavePoints[wavePoints.Count-1].y);
 		float currentFrequency = wavePoints [wavePoints.Count - 1].x;
-		if (wavePoints [0].x < ( -frequency) + waveSpeed) {
+
+		if (wavePoints [0].x < ( -2*frequency) + waveSpeed) {
 			wavePoints.RemoveAt (0);
 
+			if (Mathf.Abs (frequency - targetFrequency) < 0.11f) {
+				frequency = targetFrequency;
+				}
 
 			if (frequency < targetFrequency) {
 				frequency += frequencyDelta;
@@ -133,11 +168,22 @@ public class Wave : MonoBehaviour {
 				frequency -= frequencyDelta;
 			}
 
+			if (currentFrequency <9f || curvePointCount < 15)
+			{
+				while (currentFrequency + frequency < 12) {
+				
+					wavePoints.Add (new Vector3 (currentFrequency + frequency, amplitude * currentSign * -1, 0));
+					currentFrequency += frequency;
+					currentSign *= -1;
+				}
+			}
 
-			wavePoints.Add (new Vector3(currentFrequency + frequency, amplitude* currentSign * -1,0));
+			curvePointCount = wavePoints.Count;
 		}
 
 		DrawWave ();
 	}
+
+
 
 }
