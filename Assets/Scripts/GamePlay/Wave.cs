@@ -103,9 +103,7 @@ public class Wave : MonoBehaviour {
 		DrawWave ();
 
 	}
-
-
-
+		
 	public void DrawWave ()
 	{
 		waveLine.MakeSpline (wavePoints.ToArray(), segments, false);
