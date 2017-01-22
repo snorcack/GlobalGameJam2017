@@ -82,21 +82,17 @@ public class Events
 	}
 }
 
-public class AllReelsStoppedEvent :GameEvent
+public class FrequencyChangedEvent :GameEvent
 {
 	
 }
 
-public class BonusTileStatusEvent : GameEvent
+public class FrequencyMatchedEvent : GameEvent
 {
-
-	public BonusTileStatusEvent(bool inStatus = false, int inTileVal = 0)
-	{
-		status = inStatus;
-		tileValue = inTileVal;
-	}
-
-	public bool status;
-	public int tileValue;
+	
 }
 
+public class LifeLossEvent : GameEvent 
+{
+	
+}

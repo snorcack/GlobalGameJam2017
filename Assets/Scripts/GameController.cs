@@ -17,7 +17,33 @@ public class GameController : MonoBehaviour {
 	void Start () {
 		Invoke ("ChangeTargetFrequency", randomInterval);
 	}
-	
+
+	void OnEnable ()
+	{
+		Events.instance.AddListener <FrequencyMatchedEvent> (FrequencyMatchEventHandler);
+		Events.instance.AddListener <LifeLossEvent> (LifeLossHandler);
+	}
+
+	void OnDisable ()
+	{
+		Events.instance.RemoveListener<FrequencyMatchedEvent> (FrequencyMatchEventHandler);
+		Events.instance.RemoveListener <LifeLossEvent> (LifeLossHandler);
+	}
+
+	void LifeLossHandler (GameEvent e)
+	{
+		CancelInvoke ("ChangeTargetFrequency");
+		targetWave.SetTargetFrequencyImplicit (1);
+		currentWave.SetTargetFrequencyImplicit(1);
+
+		Invoke ("ChangeTargetFrequency", randomInterval);
+	}
+
+	void FrequencyMatchEventHandler (GameEvent e)
+	{
+		Debug.Log ("Frequency Matched");
+	}
+
 	// Update is called once per frame
 	void Update () {
 
@@ -34,9 +60,13 @@ public class GameController : MonoBehaviour {
 	void ChangeTargetFrequency ()
 	{
 		requiredFrequency = Random.Range (0.25f, 2.75f);
-		targetWave.SetTargetFrequencyImplicit (requiredFrequency);
-		currentWave.SetRequiredFrequency (requiredFrequency);
+		float cityFrequency = targetWave.Frequency;
+		float frequencyToSet = cityFrequency + Random.Range (-0.75f,0.75f);
+
+		targetWave.SetTargetFrequencyImplicit (frequencyToSet);
+		currentWave.SetRequiredFrequency (frequencyToSet);
 		Invoke ("ChangeTargetFrequency", randomInterval);
+		Events.instance.Raise (new FrequencyChangedEvent());
 	}
 		
 	public void SetPower (int inPower)

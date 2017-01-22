@@ -13,6 +13,7 @@ public class Wave : MonoBehaviour {
 	public float wavePosX;
 	public float wavePosY;
 	public bool isInteractive;
+	public bool hasToMatch = false;
 
 	Vector3 waveIncrement = new Vector3 (0.1f,0,0);
 
@@ -61,7 +62,17 @@ public class Wave : MonoBehaviour {
 		UpdateWave ();
 	}
 
+	void OnEnable ()
+	{
+		if (isInteractive) {
+			Events.instance.AddListener<FrequencyChangedEvent> (FrequencyChangeHandler);
+		}
+	}
 
+	void FrequencyChangeHandler (GameEvent e)
+	{
+		hasToMatch = true;
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -71,12 +82,18 @@ public class Wave : MonoBehaviour {
 		SetColor (requiredFrequency);
 		AnimateWave ();
 
+		if (Input.GetKeyUp (KeyCode.Tab)) {
+			if (isInteractive) {
+				Debug.Log (frequency+"Moving to" +targetFrequency);
+			} else {
+				Debug.Log ("For target is "+frequency);
+			}
+		}
+
 		if (!isInteractive)
 			return;
 
-		if (Input.GetKeyUp (KeyCode.Tab)) {
-			Debug.Log (frequency);	
-			}
+
 	}
 
 	public void ModifyCurrentFrequency (float inc)
@@ -91,9 +108,15 @@ public class Wave : MonoBehaviour {
 
 	}
 
-	public void SetTargetFrequencyImplicit (float inc)
+	public void SetTargetFrequencyImplicit (float inc, bool needToCheck = false)
 	{
-		targetFrequency = inc;
+		if (!needToCheck) {
+			targetFrequency = inc;
+		} else {
+			if (Mathf.Abs (targetFrequency - inc) > 0.5f) {
+				targetFrequency += 0.5f * Mathf.Sign (targetFrequency - inc);
+			}
+		}
 
 		if (targetFrequency > 3)
 			targetFrequency = 3;
@@ -145,9 +168,17 @@ public class Wave : MonoBehaviour {
 			multiplier = diff / 0.5f;
 		} 
 
-		if (diff < 0.1f)
+		if (diff < 0.1f) {
 			multiplier = 0;
-		
+			if (hasToMatch) {
+				hasToMatch = false;
+				Events.instance.Raise (new FrequencyMatchedEvent ());
+			}
+		} else {
+			if (!hasToMatch) {
+				Events.instance.Raise (new FrequencyChangedEvent ());
+			}
+		}
 		//Debug.Log (multiplier + "" + frequency);
 		lineMat.SetFloat ("_Hue",multiplier * 0.67f);
 		waveLine.material = lineMat;
@@ -166,7 +197,7 @@ public class Wave : MonoBehaviour {
 
 		frequencyDelta = Mathf.Abs (targetFrequency - frequency) / 5;
 		if (frequencyDelta < 0.1f)
-			frequencyDelta = 0.1f;
+			frequencyDelta = 0.09f;
 
 		float currentSign = Mathf.Sign (wavePoints[wavePoints.Count-1].y);
 		float currentFrequency = wavePoints [wavePoints.Count - 1].x;

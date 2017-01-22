@@ -45,6 +45,23 @@ public class LifeManager : MonoBehaviour
 		}
 	}
 
+	void OnEnable ()
+	{
+		Events.instance.AddListener <LifeLossEvent> (LifeLossHandler);
+	}
+
+
+	void OnDisable ()
+	{
+		Events.instance.RemoveListener <LifeLossEvent> (LifeLossHandler);
+	}
+
+	void LifeLossHandler (GameEvent e)
+	{
+		ReduceHealth ();
+	}
+
+
 	// This function will reduce the life starting from back in the list.
 	public void ReduceHealth()
 	{
