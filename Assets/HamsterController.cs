@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HamsterController : MonoBehaviour {
 
+	public Animator wheelAnimator;
 	Animator hamsterAnimator;
 	float runningSpeed = 0;
 
@@ -29,5 +30,6 @@ public class HamsterController : MonoBehaviour {
 			runningSpeed = 1;
 
 		hamsterAnimator.SetFloat ("Blend", runningSpeed);
+		wheelAnimator.SetFloat ("Blend", runningSpeed);
 	}
 }
