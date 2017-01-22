@@ -30,6 +30,7 @@ public class Wave : MonoBehaviour {
 	float waveSpeed = 0.1f;
 	float targetAmplitude = 1;
 	float amplitudeDelta = 0.1f;
+	float requiredFrequency =1 ;
 
 	float targetFrequency =1 ;
 	float frequencyDelta = 0.1f;
@@ -67,7 +68,7 @@ public class Wave : MonoBehaviour {
 
 		if (GameConstants.isPaused)
 			return;
-		SetColor (1);
+		SetColor (requiredFrequency);
 		AnimateWave ();
 
 		if (!isInteractive)
@@ -78,7 +79,7 @@ public class Wave : MonoBehaviour {
 			}
 	}
 
-	public void SetTargetFrequency (float inc)
+	public void ModifyCurrentFrequency (float inc)
 	{
 		targetFrequency += inc;
 
@@ -88,6 +89,23 @@ public class Wave : MonoBehaviour {
 		if (targetFrequency < 0.25f)
 			targetFrequency = 0.25f;
 
+	}
+
+	public void SetTargetFrequencyImplicit (float inc)
+	{
+		targetFrequency = inc;
+
+		if (targetFrequency > 3)
+			targetFrequency = 3;
+
+		if (targetFrequency < 0.25f)
+			targetFrequency = 0.25f;
+		
+	}
+
+	public void SetRequiredFrequency (float inFreq)
+	{
+		requiredFrequency = inFreq;
 	}
 
 	public void UpdateWave()

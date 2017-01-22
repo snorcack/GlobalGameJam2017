@@ -10,10 +10,12 @@ public class GameController : MonoBehaviour {
 	public HamsterController hamster;
 
 	float powerIncrement;
+	float randomInterval = 10f;
+	float requiredFrequency = 1;
 
 	// Use this for initialization
 	void Start () {
-		
+		Invoke ("ChangeTargetFrequency", randomInterval);
 	}
 	
 	// Update is called once per frame
@@ -29,13 +31,29 @@ public class GameController : MonoBehaviour {
 
 	}
 
-
+	void ChangeTargetFrequency ()
+	{
+		requiredFrequency = Random.Range (0.25f, 2.75f);
+		targetWave.SetTargetFrequencyImplicit (requiredFrequency);
+		currentWave.SetRequiredFrequency (requiredFrequency);
+		Invoke ("ChangeTargetFrequency", randomInterval);
+	}
+		
 	public void SetPower (int inPower)
 	{
 		float frequencyDelta = 0.01f;
-		float hamsterDelta = -0.01f;
+		//float hamsterDelta = -0.02f;
+		float hamsterSpeed;
 
-		currentWave.SetTargetFrequency (frequencyDelta * inPower);
-		hamster.SetHamsterSpeed (hamsterDelta * inPower);
+		if (currentWave.Frequency < 0.7) {
+			hamsterSpeed = 1;
+		} else if (currentWave.Frequency > 2) {
+			hamsterSpeed = 0;
+		} else {
+			hamsterSpeed = 0.5f;
+		}
+
+		currentWave.ModifyCurrentFrequency (frequencyDelta * inPower);
+		hamster.SetHamsterSpeed (hamsterSpeed);
 	}
 }

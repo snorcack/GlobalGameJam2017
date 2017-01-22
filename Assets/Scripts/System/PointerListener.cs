@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PointerListener : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+	public GameController controllerRef;
+	public int sign;
 	bool _pressed = false;
 	public void OnPointerDown(PointerEventData eventData)
 	{
@@ -20,6 +24,7 @@ public class PointerListener : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 		if (!_pressed)
 			return;
 
+		controllerRef.SetPower (sign * 1);
 		// DO SOMETHING HERE
 	}
 }

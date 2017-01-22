@@ -20,7 +20,13 @@ public class HamsterController : MonoBehaviour {
 
 	public void SetHamsterSpeed (float inSpeed)
 	{
-		runningSpeed += inSpeed;
+		runningSpeed = Mathf.Lerp(runningSpeed, inSpeed,Time.deltaTime);
+
+		if (runningSpeed < 0)
+			runningSpeed = 0;
+
+		if (runningSpeed > 1)
+			runningSpeed = 1;
 
 		hamsterAnimator.SetFloat ("Blend", runningSpeed);
 	}
