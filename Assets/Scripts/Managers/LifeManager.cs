@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class LifeManager : MonoBehaviour 
 {
@@ -65,10 +66,11 @@ public class LifeManager : MonoBehaviour
 	// This function will reduce the life starting from back in the list.
 	public void ReduceHealth()
 	{
-		if (_lifeImageList.Count > 0) 
-		{
-			_lifeImageList[_lifeImageList.Count - 1].enabled = false;
+		if (_lifeImageList.Count > 0) {
+			_lifeImageList [_lifeImageList.Count - 1].enabled = false;
 			_lifeImageList.RemoveAt (_lifeImageList.Count - 1);
+		} else {
+			SceneManager.LoadScene ("GameOverScene", LoadSceneMode.Single);		
 		}
 	}
 

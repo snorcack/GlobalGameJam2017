@@ -35,6 +35,7 @@ public class GameController : MonoBehaviour {
 		CancelInvoke ("ChangeTargetFrequency");
 		targetWave.SetTargetFrequencyImplicit (1);
 		currentWave.SetTargetFrequencyImplicit(1);
+		hamster.SetHamsterSpeed (0);
 
 		Invoke ("ChangeTargetFrequency", randomInterval);
 	}
@@ -75,7 +76,7 @@ public class GameController : MonoBehaviour {
 		//float hamsterDelta = -0.02f;
 		float hamsterSpeed;
 
-		if (currentWave.Frequency < 0.7) {
+		if (currentWave.Frequency < 0.8f) {
 			hamsterSpeed = 1;
 		} else if (currentWave.Frequency > 2) {
 			hamsterSpeed = 0;
